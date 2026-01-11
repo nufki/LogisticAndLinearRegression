@@ -125,32 +125,73 @@ L = -(1/N) Σᵢ Σₖ yᵢₖ · log(P(yᵢ = k | xᵢ))
 
 ## Implementation Details
 
+### Prediction Formula
+
+**Single Output (Regression)**:
+```
+ŷ = w₀ + w₁x₁ + w₂x₂ + ... + wₙxₙ = w₀ + w^T x
+```
+
+**Multiple Outputs (Multi-class)**:
+```
+ŷⱼ = w₀ⱼ + Σᵢ wᵢⱼxᵢ  (for each output j)
+```
+
+**Code Implementation**:
+```java
+// Initialize with bias
+output[j] = weights[0][j];  // w₀ⱼ
+
+// Add weighted features  
+for (int i = 0; i < x.length; i++) {
+    output[j] += weights[i + 1][j] * x[i];  // Σ wᵢⱼxᵢ
+}
+```
+
 ### Gradient Descent
+
+**Gradient Formula** (for Linear Regression with MSE):
+```
+∂MSE/∂wⱼ = (1/N) Σᵢ (ŷᵢ - yᵢ) · xᵢⱼ
+```
+
+In matrix form:
+```
+∇MSE = (1/N) · X^T · (ŷ - y)
+```
+
+Where:
+- `ŷ` = predictions = X · w
+- `y` = actual targets
+- `X` = feature matrix
+- `N` = number of samples
+
+**Update Rule**:
+```
+wⱼ := wⱼ - α · ∂MSE/∂wⱼ
+```
 
 **Basic Algorithm**:
 ```java
 for (int iter = 0; iter < maxIterations; iter++) {
     // 1. Forward pass: compute predictions
-    double[] predictions = predict(X);
+    double[] predictions = predict(X);  // ŷ = Xw
     
     // 2. Compute error
-    double[] errors = predictions - Y;
+    double[] errors = predictions - Y;  // (ŷ - y)
     
     // 3. Compute gradients
-    gradients = (1/N) * X^T * errors;
+    gradients = (1/N) * X^T * errors;  // ∇MSE = (1/N)X^T(ŷ - y)
     
     // 4. Update weights
-    weights -= learningRate * gradients;
+    weights -= learningRate * gradients;  // w := w - α∇MSE
 }
 ```
 
-**Learning Rate**: Controls step size
-- Too large: Oscillation, divergence
-- Too small: Slow convergence
+**Learning Rate (α)**: Controls step size
+- Too large → Oscillation, divergence
+- Too small → Slow convergence
 - Typical values: 0.01 - 0.5
-
-**Convergence**: Monitor MSE/loss over iterations
-
 ---
 
 ### Error Surface Geometry

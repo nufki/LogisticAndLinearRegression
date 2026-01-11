@@ -184,6 +184,18 @@ public class LinearRegression {
 
     /**
      * Internal prediction (works before training for gradient computation)
+     *
+     * Single output: ŷ = w₀ + w₁x₁ + w₂x₂ + ... + wₙxₙ
+     * Multiple outputs: ŷⱼ = w₀ⱼ + w₁ⱼx₁ + w₂ⱼx₂ + ... + wₙⱼxₙ
+     * or in vector form: ŷ = w₀ + W^T x
+     *
+     * weight matrix structure:
+     * ```
+     * weights[0]   = [w₀₀, w₀₁, w₀₂, ...]  // biases
+     * weights[1]   = [w₁₀, w₁₁, w₁₂, ...]  // weights for x₁
+     * weights[2]   = [w₂₀, w₂₁, w₂₂, ...]  // weights for x₂
+     *
+     * output[j] = weights[0][j] + Σᵢ (weights[i+1][j] * x[i])
      */
     private double[] predictSingle(double[] x) {
         int numOutputs = weights[0].length;
