@@ -25,16 +25,18 @@ Everything's written in plain Java with interactive visualizations for all 2D cl
 
 ## Overview
 
-This project implements two fundamental machine learning algorithms from scratch in Java:
+This project implements two core machine-learning algorithms **from scratch in Java**:
 
-- **Linear Regression** - For regression tasks (ideally continuous outputs but I also use it for classification of labels in oneHot encoding)
-- **Logistic Regression** - For classification tasks (categorical outputs)
+- **Linear Regression** – primarily used for regression tasks with continuous targets; additionally demonstrated on a binary classification problem using one-hot encoded labels.
+- **Logistic Regression** – designed for classification tasks with categorical outputs.
 
 Each implementation includes:
-- Training via gradient descent (and closed-form solution for Linear Regression)
-- Prediction capabilities
-- Visualization of decision boundaries
-- 1 example shows a liniar regression for a binary classification (with 2-dimensional weight vector) that plots the error surface
+- Model training using **gradient descent**
+- A **closed-form (normal equation) solution** for Linear Regression
+- Prediction and inference functionality
+- **Visualization of decision boundaries**
+
+Additionally, one example demonstrates the use of **linear regression for binary classification**, employing a 2-dimensional weight vector and visualizing the corresponding **error surface**.
 
 ---
 
